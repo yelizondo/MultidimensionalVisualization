@@ -6,9 +6,11 @@ function setup()
 	local path = "carprice.csv"
 	local sep = ","
 	data =  readCSV(path, sep)
+	printDataFrame(data)
+	rownames(data)
 end
 
 function draw()
 	background("#272822")
-	print("Hola")
+	--print("Hola")
 end
