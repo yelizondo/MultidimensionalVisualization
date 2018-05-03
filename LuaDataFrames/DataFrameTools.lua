@@ -3,7 +3,9 @@
 -- Developed by Yuberth ELizondo Cordero
 
 -- This method uses ftcsv to read CVS files
+-- https://github.com/FourierTransformer/ftcsv
 -- Returns a DataFrame
+
 function readCSV(path,sep)
 	dataFrame = {}
 
