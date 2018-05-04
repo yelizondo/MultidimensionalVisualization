@@ -1,7 +1,6 @@
 -- This is a Data Frame Tools library for Lua, 
 -- with the R syntax as a base
 -- Developed by Yuberth ELizondo Cordero
-
 -- This method uses ftcsv to read CVS files
 -- https://github.com/FourierTransformer/ftcsv
 -- Returns a DataFrame
