@@ -1,21 +1,25 @@
 require "LuaDataFrames/DataFrameTools"
 
+	data = {}
+	for i=1, 100000 do
+		table.insert(data,math.random((100)))
+	end	
+	table.sort(data)
 
 function setup()
 	sizeX = 600
 	sizeY = 600
 	size(sizeX,sizeY)
+
+	frameRate(15)
+
 	local path = "carprice.csv"
 	local sep = ","
 	--data =  readCSV(path, sep)
 	--printDataFrame(data)
 	--rownames(data)
 
-	data = {}
-	for i=1, 100000 do
-		table.insert(data,math.random((100)))
-	end	
-	table.sort(data)
+
 end
 
 function goRight(x,y)
