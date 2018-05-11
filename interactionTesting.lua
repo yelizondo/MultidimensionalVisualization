@@ -1,26 +1,44 @@
 function setup()
-	sizeX = 600
-	sizeY = 600
-	size(sizeX,sizeY)
+
+	size(600,600)
 
 	pixels = {}
+	table.insert(pixels,pixel(100,100,0,1,"#F52644","#FD8D20"))
+	table.insert(pixels,pixel(200,200,1,0,"#9AD92D","#FD8D20"))
 end
 
-function interactionManagment(pixelInfo)
-
+function interactionManagment(pair)
+	for i=1,#pixels do
+		if (pixels[i].id == pair) then
+			pixels[i].highlight = true
+		end
+	end
 end
 
-function pixel(pId,pX,pY,pPair,pColor)
-	return {id=pId, x=pX, y=pY,pair=pPair,color=pColor}
+
+function pixel(pX,pY,pId,pPair,pColor,pHLC)
+	return {id = pId, 
+			x = pX, 
+			y = pY,
+			pair = pPair,
+			color = pColor,
+			highlight = false,
+			hlColor = pHLC}
 end
 
 function drawPixels(dataPixels)
-	for i = 1, #pixels
+	for i = 1, #pixels do
 
 		event(CLICKED)
-		fill(pixels[i].color)
+		if (highlight) then 
+			fill(pixels[i].hlColor)
 
-		if (rect(pixels[i].x,pixels[i].y,10,10)) then
+
+			fill(pixels[i].color)
+		end
+
+		if (rect(pixels[i].x,pixels[i].y,30,30)) then
+
 			interactionManagment(pixels[i].pair)
 		end
 	end
@@ -28,12 +46,7 @@ end
 
 function draw()
 	background("#272822")
-
-	table.insert(pixels,pixel(100,100,0,1))
-	table.insert(pixels,pixel(100,100,1,0))
-
-
-
+	drawPixels(pixels)
 end
 
 
