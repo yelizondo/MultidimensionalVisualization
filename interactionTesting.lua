@@ -1,50 +1,39 @@
-pixels = {} -- Class to save the pixels
-
-function pixels:new()
-	p = {}
-	setmetatable(p,self)
-	self.__index = self
-	return p
-end
-
-function pixels:add(id,pixel)
-	self.id = pixel
-end
-
 function setup()
 	sizeX = 600
 	sizeY = 600
 	size(sizeX,sizeY)
 
-	
- 
+	pixels = {}
 end
 
 function interactionManagment(pixelInfo)
 
 end
 
-function pixel(x,y,pID,pPair)
-	local pxlInfo = {
-		id = pID,
-		pair = pPair
-	}
+function pixel(pId,pX,pY,pPair,pColor)
+	return {id=pId, x=pX, y=pY,pair=pPair,color=pColor}
+end
 
-	event(CLICKED)
-	fill("#E8263C")
-	if (rect(x,y,10,10)) then
-		interactionManagment(pxlInfo)
+function drawPixels(dataPixels)
+	for i = 1, #pixels
+
+		event(CLICKED)
+		fill(pixels[i].color)
+
+		if (rect(pixels[i].x,pixels[i].y,10,10)) then
+			interactionManagment(pixels[i].pair)
+		end
 	end
-
-	return pxlInfo
 end
 
 function draw()
 	background("#272822")
 
-	pixels.
-	pixel(100,100,"0","1")
-	pixel(200,20,"1","0")
+	table.insert(pixels,pixel(100,100,0,1))
+	table.insert(pixels,pixel(100,100,1,0))
+
+
+
 end
 
 
