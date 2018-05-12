@@ -1,10 +1,6 @@
 -- Esta puede ser la funcion que se llama desde el main
 -- se le pasan los datos y eso... y se encarga de acomodar todo en la pantalla
 -- y llamar las otras funciones, tenemos que ver todo lo de los parametros y eso
-function VisDB(data)
-	-- body
-end
-
 ----
 
 function spiralShapedArrangement(data)
