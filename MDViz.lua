@@ -75,3 +75,7 @@ end
 -- Funcion asociar valores, para poder enlazarlos y graficar con iteracciones
 function linkData(data1,data2)
 end
+
+--[[
+	NO OLVIDAR MANEJAR LOS COLORES
+]]

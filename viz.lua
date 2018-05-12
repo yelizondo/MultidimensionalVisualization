@@ -1,9 +1,6 @@
 require "MDViz"
 require "LuaDataFrames/DataFrameTools"
 
-
-
-
 function setup()
 	size(600,600)
 
