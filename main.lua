@@ -1,10 +1,19 @@
 require "LuaDataFrames/DataFrameTools"
-
 	data = {}
 	for i=1, 100000 do
 		table.insert(data,math.random((100)))
 	end	
 	table.sort(data)
+
+function node()
+	mini={
+		x=0,
+		y=0,
+		Data1=0,
+		Data2=0,
+		Name=""}
+	return mini
+end
 
 function setup()
 	sizeX = 600
