@@ -155,8 +155,8 @@ end
 function draw()
 	background("#272822")
 
-	local x = 300
-	local y = 300
+	local x = sizeX
+	local y = sizeY
 
 	drawPixels(data,x,y)
 	--print("Hola")
