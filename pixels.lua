@@ -33,7 +33,24 @@ end
 -- Recorro el table de pixels y los dibujo
 -- Ademas se encarga de llamar la funcion encargada de la interaccion
 function drawPixels()
+	local hightlight = false
 
+	for i = 1, #pixels do
+
+		noStroke()
+
+		if (not pixels[i].highlight) then 
+			fill(pixels[i].color)
+		else
+			fill(pixels[i].hlColor)
+		end
+
+		event(CLICKED)
+		if (rect(pixels[i].x,pixels[i].y,1,1)) then
+			highlight = not highlight
+			interactionManagment(pixels[i].pair,highlight)
+		end
+	end
 end
 
 
@@ -46,3 +63,6 @@ function interactionManagment(pair,highlight)
 		end
 	end
 end
+
+
+-- Funcion asociar valores, para poder enlazarlos y graficar con iteracciones
