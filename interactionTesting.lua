@@ -1,50 +1,54 @@
-pixels = {} -- Class to save the pixels
-
-function pixels:new()
-	p = {}
-	setmetatable(p,self)
-	self.__index = self
-	return p
-end
-
-function pixels:add(id,pixel)
-	self.id = pixel
-end
-
 function setup()
-	sizeX = 600
-	sizeY = 600
-	size(sizeX,sizeY)
+	size(600,600)
 
-	
- 
+	pixels = {}
+	table.insert(pixels,pixel(100,100,0,1,"#F52644","#FD8D20"))
+	table.insert(pixels,pixel(200,200,1,0,"#9AD92D","#FD8D20"))
+	table.insert(pixels,pixel(240,200,1,0,"#9AD92D","#FD8D20"))
 end
 
-function interactionManagment(pixelInfo)
-
-end
-
-function pixel(x,y,pID,pPair)
-	local pxlInfo = {
-		id = pID,
-		pair = pPair
-	}
-
-	event(CLICKED)
-	fill("#E8263C")
-	if (rect(x,y,10,10)) then
-		interactionManagment(pxlInfo)
+function interactionManagment(pair,highlight)
+	for i=1,#pixels do
+		if (pixels[i].id == pair) then
+			pixels[i].highlight = highlight
+		end
 	end
+end
 
-	return pxlInfo
+
+function pixel(pX,pY,pId,pPair,pColor,pHLC)
+	return {id = pId, 
+			x = pX, 
+			y = pY,
+			pair = pPair,
+			color = pColor,
+			highlight = false,
+			hlColor = pHLC}
+end
+
+function drawPixels(dataPixels)
+	local hightlight = false
+	for i = 1, #pixels do
+
+		noStroke()
+
+		if (not pixels[i].highlight) then 
+			fill(pixels[i].color)
+		else
+			fill(pixels[i].hlColor)
+		end
+
+		event(CLICKED)
+		if (rect(pixels[i].x,pixels[i].y,30,30)) then
+			highlight = not highlight
+			interactionManagment(pixels[i].pair,highlight)
+		end
+	end
 end
 
 function draw()
 	background("#272822")
-
-	pixels.
-	pixel(100,100,"0","1")
-	pixel(200,20,"1","0")
+	drawPixels(pixels)
 end
 
 
