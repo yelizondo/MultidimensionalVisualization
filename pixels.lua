@@ -1,18 +1,48 @@
--- Esta puede ser la funcion que se llama desde el main
--- se le pasan los datos y eso... y se encarga de acomodar todo en la pantalla
--- y llamar las otras funciones, tenemos que ver todo lo de los parametros y eso
-----
+pixels = {}
 
+-- Objeto Pixel
+function pixel(pX,pY,pId,pPair,pColor,pHLC)
+	return {id = pId, 
+			x = pX, 
+			y = pY,
+			pair = pPair,
+			color = pColor,
+			highlight = false,
+			hlColor = pHLC}
+end
+
+-----------------------------------------------
+--  Las tecnicas generan los pixeles en sus  --
+--  respectivos x,y para anadirlos al table  --
+-----------------------------------------------
+
+-- Primera tecnica
 function spiralShapedArrangement(data)
 end
--- Escojer una de las dos siguientes tecnicas
+
+-- Segunda tecnica
 function twoDArrangement(data)
 end
+
+-- Tercera tecnica
 function groupingArrangement(data)
 end
+-----------------------------------------------
 
-----
 
--- Para el manejo de eventos
-function eventManagment()
+-- Recorro el table de pixels y los dibujo
+-- Ademas se encarga de llamar la funcion encargada de la interaccion
+function drawPixels()
+
+end
+
+
+-- Dado un pixel, busca los pixeles asociados
+-- y los resalta o no
+function interactionManagment(pair,highlight)
+	for i=1,#pixels do
+		if (pixels[i].id == pair) then
+			pixels[i].highlight = highlight
+		end
+	end
 end

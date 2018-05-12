@@ -21,5 +21,10 @@ end
 function draw()
 	background("#272822")
 
+	-- Lo que hacen es general los pixels y agregarlos a un {}, para luego dibujarlos
 	spiralShapedArrangement(data1)
+	secondTechnique(data2)
+
+	-- Recorre el arreglo de pixeles y los dibuja
+	drawPixels()
 end
