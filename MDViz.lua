@@ -82,12 +82,7 @@ function linkData(data1,data2)
 	end
 end
 
-function relevanceFactor(pTable, minValueColor, maxValueColor)
 
-	-- se ordenan los datos de acuerdo a cierto criterio
-
-	return {table=pTable, minColor=minValueColor, maxcolor=maxValueColor}	
-end
 
 --[[
 	NO OLVIDAR MANEJAR LOS COLORES
