@@ -57,7 +57,7 @@ function getMaxValue(sorted)
 end
 
 function num2hex(num)
-    local hexstr = '0123456789abcdef'
+    local hexstr = '0123456789ABCDEF'
     local s = ''
     while num > 0 do
         local mod = math.fmod(num, 16)
