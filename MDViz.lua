@@ -86,7 +86,7 @@ function relevanceFactor(pTable, minValueColor, maxValueColor)
 
 	-- se ordenan los datos de acuerdo a cierto criterio
 
-	return {table=table, minColor=minValueColor, maxcolor=maxValueColor}	
+	return {table=pTable, minColor=minValueColor, maxcolor=maxValueColor}	
 end
 
 --[[
