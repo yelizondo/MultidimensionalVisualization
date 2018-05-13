@@ -3,7 +3,8 @@ require "LuaDataFrames/DataFrameTools"
 
 function setup()
 	size(510,400)
-
+	noLoop()
+	frameRate(120)
 	-- Random data to test
 	dataFrame = readCSV("data/walmartSales.csv", ",")
 	vendedores = getCol(dataFrame,"Vendedor")
