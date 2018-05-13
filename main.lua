@@ -158,6 +158,6 @@ function draw()
 	local x = sizeX
 	local y = sizeY
 
-	drawPixels(data,x,y)
+	drawPixels(data,300,300)
 	--print("Hola")
 end

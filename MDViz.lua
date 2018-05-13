@@ -1,12 +1,4 @@
-MDViz = {}
-
-function MDViz:new()
-	p = { pixels = {} }
-	setmetatable(p,self)
-	self.__index = self
-	return p
-end
-
+pixels = {}
 
 function pixel(pX,pY,pId,pPair,pColor,pHLC)
 	return {id = pId, 
@@ -34,7 +26,7 @@ end
 -----------------------------------------------
 
 -- Primera tecnica
-function MDViz:spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor)
+function spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor)
 	local turns = {true,false,false,false}
 	local steps = 1
 	local temp_steps = steps
@@ -46,9 +38,8 @@ function MDViz:spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor
 		
 		-- Aqui se calcula el color
 		local color = getPixelColor(data[i].id, getMinValue(data), getMaxValue(data), minColor, maxColor)
-
 		-- Aqui se anade el pixel al table de pixels
-		table.insert(self.pixels, pixel(x, y, data[i].id, data[i].pair, color, pHColor))
+		table.insert(pixels, pixel(x, y, data[i].id, data[i].pair, color, pHColor))
 
 
 		if (turns[1]) then
@@ -113,39 +104,39 @@ function MDViz:spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor
 end
 
 -- Segunda tecnica
-function MDViz:twoDArrangement(data)
+function twoDArrangement(data)
 end
 
 -- Tercera tecnica
-function MDViz:groupingArrangement(data)
+function groupingArrangement(data)
 end
 -----------------------------------------------
 
 -- Recorro el table de pixels y los dibujo
 -- Ademas se encarga de llamar la funcion encargada de la interaccion
-function MDViz:drawPixels()
+function drawPixels()
 	local highlight = false
 
-	for i = 1, #self.pixels do
-		print('x' .. self.pixels[i].x,
+	for i = 1, #pixels do
+		--[[print('x' .. self.pixels[i].x,
 			'y' .. self.pixels[i].y,
 			'id' .. self.pixels[i].id,
 			'pair' .. self.pixels[i].pair,
-			'color' .. self.pixels[i].color, 
-			'highlight' .. self.pixels[i].hlColor)
+			'color>' .. self.pixels[i].color, 
+			'highlight' .. self.pixels[i].hlColor)]]
 
 		noStroke()
 
-		if (not self.pixels[i].highlight) then 
-			fill(self.pixels[i].color)
+		if (not pixels[i].highlight) then 
+			fill(pixels[i].color)
 		else
-			fill(self.pixels[i].hlColor)
+			fill(pixels[i].hlColor)
 		end
 
 		event(CLICKED)
-		if (rect(self.pixels[i].x, self.pixels[i].y, 1, 1)) then
+		if (rect(pixels[i].x, pixels[i].y, 1, 1)) then
 			highlight = not highlight
-			self.interactionManagment(self.pixels[i].pair,highlight)
+			interactionManagment(pixels[i].pair,highlight)
 		end
 	end
 end
@@ -153,8 +144,8 @@ end
 
 -- Dado un pixel, busca los pixeles asociados
 -- y los resalta o no
-function MDViz:interactionManagment(pair,highlight)
-	for i=1,#self.pixels do
+function interactionManagment(pair,highlight)
+	for i=1,#pixels do
 		if (pixels[i].id == pair) then
 			pixels[i].highlight = highlight
 		end
@@ -168,7 +159,7 @@ function getPixelColor(id, minValue, maxValue, minColor, maxColor)
 						maxValue,
 						tonumber(removeFirstStr(minColor),16),
 						tonumber(removeFirstStr(maxColor),16))
-	return num2hex(temp)
+	return '#' .. num2hex(temp)
 end
 
 -- Funcion asociar valores, para poder enlazarlos y graficar con iteracciones
@@ -216,7 +207,7 @@ function num2hex(num)
         num = math.floor(num / 16)
     end
     if s == '' then s = '0' end
-    return '#' .. s
+    return s
 end
 
 function goRight(x,y)
