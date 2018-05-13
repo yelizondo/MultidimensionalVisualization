@@ -165,6 +165,7 @@ function linkData(data1,data2)
 		local sq={id=data1[i],pair=data2[i]}
 		table.insert(_table,sq)
 	end
+	return _table
 end
 
 function num2hex(num)
@@ -177,5 +178,37 @@ function num2hex(num)
     end
     if s == '' then s = '0' end
     return '#' .. s
+end
+
+function by_ID(data1, data2)
+	return data1.id < data2.id -- compara por id (1er parametro de la tabla)
+end
+
+function relevanceFactor(pTable)
+	table.sort(pTable, by_ID)
+	-- se ordenan los datos de acuerdo a cierto criterio
+	return pTable
+end
+
+function tprint (tbl, indent)
+	if not indent then indent = 0 end
+	for k, v in pairs(tbl) do
+	  formatting = string.rep("  ", indent) .. k .. ": "
+	  if type(v) == "table" then
+		tprint(v, indent+1)
+	  else
+		print(formatting .. v)
+	  end
+	end
+end
+
+
+function getMinValue(sorted)
+	return sorted[1].id
+end
+
+function getMaxValue(sorted)
+	local i = #sorted
+	return sorted[i].id
 end
 
