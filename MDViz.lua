@@ -29,12 +29,15 @@ function MDViz:spiralShapedArrangement(x,y,data,pHColor, minColor, maxColor)
 	local steps = 1
 	local temp_steps = steps
 
+	data = self.relevanceFactor(data) -- This sorts the data
+
 
 	for i=1,#data do
 		
 		-- Aqui se calcula el color
 		color = getPixelColor(data[i].id, getMinValue(data), getMaxValue(data), minColor, maxColor)
 
+		-- Aqui se anade el pixel al table de pixels
 		table.insert(self.pixels, self.pixel(x,y,data[i].id,data[i].pair,color,pHColors))
 
 
@@ -143,10 +146,6 @@ function MDViz:interactionManagment(pair,highlight)
 	end
 end
 
-function removeFirstStr(str)
-	return string.gsub(str,'#','')
-end
-
 -- 
 function MDViz:getPixelColor(id, minValue, maxValue, minColor, maxColor)
 	local temp = map(id,
@@ -155,6 +154,16 @@ function MDViz:getPixelColor(id, minValue, maxValue, minColor, maxColor)
 						tonumber(removeFirst(minColor),16),
 						tonumber(removeFirst(maxColor),16))
 	return num2hex(temp)
+end
+
+function MDViz:relevanceFactor(pTable)
+	table.sort(pTable, by_ID)
+	-- se ordenan los datos de acuerdo a cierto criterio
+	return pTable
+end
+
+function by_ID(data1, data2)
+	return data1.id < data2.id -- compara por id (1er parametro de la tabla)
 end
 
 -- Funcion asociar valores, para poder enlazarlos y graficar con iteracciones
@@ -166,28 +175,6 @@ function linkData(data1,data2)
 		table.insert(_table,sq)
 	end
 	return _table
-end
-
-function num2hex(num)
-    local hexstr = '0123456789ABCDEF'
-    local s = ''
-    while num > 0 do
-        local mod = math.fmod(num, 16)
-        s = string.sub(hexstr, mod+1, mod+1) .. s
-        num = math.floor(num / 16)
-    end
-    if s == '' then s = '0' end
-    return '#' .. s
-end
-
-function by_ID(data1, data2)
-	return data1.id < data2.id -- compara por id (1er parametro de la tabla)
-end
-
-function relevanceFactor(pTable)
-	table.sort(pTable, by_ID)
-	-- se ordenan los datos de acuerdo a cierto criterio
-	return pTable
 end
 
 function tprint (tbl, indent)
@@ -202,7 +189,6 @@ function tprint (tbl, indent)
 	end
 end
 
-
 function getMinValue(sorted)
 	return sorted[1].id
 end
@@ -212,3 +198,18 @@ function getMaxValue(sorted)
 	return sorted[i].id
 end
 
+function removeFirstStr(str)
+	return string.gsub(str,'#','')
+end
+
+function num2hex(num)
+    local hexstr = '0123456789ABCDEF'
+    local s = ''
+    while num > 0 do
+        local mod = math.fmod(num, 16)
+        s = string.sub(hexstr, mod+1, mod+1) .. s
+        num = math.floor(num / 16)
+    end
+    if s == '' then s = '0' end
+    return '#' .. s
+end
