@@ -46,7 +46,7 @@ function MDViz:spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor
 	for i=1,#data do
 		
 		-- Aqui se calcula el color
-		color = getPixelColor(data[i].id, getMinValue(data), getMaxValue(data), minColor, maxColor)
+		color = self.getPixelColor(data[i].id, getMinValue(data), getMaxValue(data), minColor, maxColor)
 
 		-- Aqui se anade el pixel al table de pixels
 		table.insert(self.pixels, self.pixel(x,y,data[i].id,data[i].pair,color,pHColors))
