@@ -2,7 +2,7 @@ require "MDViz"
 require "LuaDataFrames/DataFrameTools"
 
 function setup()
-	size(600,600)
+	size(800,800)
 
 	-- Random data to test
 	dataFrame = readCSV("data/walmartSales.csv", ",")
@@ -14,7 +14,7 @@ function setup()
 	local y1 = 100
 
 	-- Second technique position
-	local x2 = 100
+	local x2 = 400
 	local y2 = 100
 
 	mdv = MDViz:new()
@@ -22,8 +22,8 @@ function setup()
 	-- Lo que hacen es general los pixels enlazados y 
 	-- agregarlos a un {}, para luego dibujarlos
 
-	mdv:spiralShapedArrangement(x1,y1,linkData(vendedores,precios),"#E62660")
-	mdv:secondTechnique(x2,y2,linkData(precios,vendedores),"#E62660")
+	mdv:spiralShapedArrangement(x1,y1,linkData(vendedores,precios),"#E62660","#272822","#BCF6DB")
+	mdv:spiralShapedArrangement(x2,y2,linkData(precios,vendedores),"#E62660","#272822","#BCF6DB")
 	
 end
 
