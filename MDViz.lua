@@ -22,8 +22,7 @@ function by_ID(data1, data2)
 	return data1.id < data2.id -- compara por id (1er parametro de la tabla)
 end
 
-function MDViz:relevanceFactor(pTable)
-	print(pTable)
+function relevanceFactor(pTable)
 	table.sort(pTable, by_ID)
 	-- se ordenan los datos de acuerdo a cierto criterio
 	return pTable
@@ -41,7 +40,7 @@ function MDViz:spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor
 	local temp_steps = steps
 
 	print(dataTable)
-	data = self.relevanceFactor(dataTable) -- This sorts the data
+	data = relevanceFactor(dataTable) -- This sorts the data
 
 
 	for i=1,#data do
