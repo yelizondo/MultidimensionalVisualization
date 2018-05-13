@@ -24,12 +24,12 @@ end
 -----------------------------------------------
 
 -- Primera tecnica
-function MDViz:spiralShapedArrangement(x,y,data,pHColor, minColor, maxColor)
+function MDViz:spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor)
 	local turns = {true,false,false,false}
 	local steps = 1
 	local temp_steps = steps
 
-	data = self.relevanceFactor(data) -- This sorts the data
+	data = self.relevanceFactor(dataTable) -- This sorts the data
 
 
 	for i=1,#data do
@@ -156,15 +156,18 @@ function MDViz:getPixelColor(id, minValue, maxValue, minColor, maxColor)
 	return num2hex(temp)
 end
 
+function by_ID(data1, data2)
+	return data1.id < data2.id -- compara por id (1er parametro de la tabla)
+end
+
 function MDViz:relevanceFactor(pTable)
+	print(pTable)
 	table.sort(pTable, by_ID)
 	-- se ordenan los datos de acuerdo a cierto criterio
 	return pTable
 end
 
-function by_ID(data1, data2)
-	return data1.id < data2.id -- compara por id (1er parametro de la tabla)
-end
+
 
 -- Funcion asociar valores, para poder enlazarlos y graficar con iteracciones
 function linkData(data1,data2)
