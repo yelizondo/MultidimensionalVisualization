@@ -5,8 +5,9 @@ function setup()
 	size(600,600)
 
 	-- Random data to test
-	local data1 = {}
-	local data2 = {}
+	dataFrame = readCSV("data/walmartSales.csv", ",")
+	vendedores = getCol(dataFrame,"Vendedor")
+	precios = getCol(dataFrame, "Precios")
 
 	-- First technique position
 	local x1 = 100
@@ -20,9 +21,9 @@ function setup()
 
 	-- Lo que hacen es general los pixels enlazados y 
 	-- agregarlos a un {}, para luego dibujarlos
-	
-	mdv:spiralShapedArrangement(x1,y1,linkData(data1,data2))
-	mdv:secondTechnique(x2,y2,linkData(data2,data1))
+
+	mdv:spiralShapedArrangement(x1,y1,linkData(vendedores,precios))
+	mdv:secondTechnique(x2,y2,linkData(precios,vendedores))
 	
 end
 
