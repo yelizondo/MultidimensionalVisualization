@@ -8,7 +8,7 @@ function MDViz:new()
 end
 
 
-function MDViz:pixel(pX,pY,pId,pPair,pColor,pHLC)
+function pixel(pX,pY,pId,pPair,pColor,pHLC)
 	return {id = pId, 
 			x = pX, 
 			y = pY,
@@ -48,7 +48,7 @@ function MDViz:spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor
 		local color = getPixelColor(data[i].id, getMinValue(data), getMaxValue(data), minColor, maxColor)
 
 		-- Aqui se anade el pixel al table de pixels
-		table.insert(self.pixels, self.pixel(x, y, data[i].id, data[i].pair, color, pHColor))
+		table.insert(self.pixels, pixel(x, y, data[i].id, data[i].pair, color, pHColor))
 
 
 		if (turns[1]) then
@@ -121,13 +121,18 @@ function MDViz:groupingArrangement(data)
 end
 -----------------------------------------------
 
-
 -- Recorro el table de pixels y los dibujo
 -- Ademas se encarga de llamar la funcion encargada de la interaccion
 function MDViz:drawPixels()
-	local hightlight = false
+	local highlight = false
 
 	for i = 1, #self.pixels do
+		print('x' .. self.pixels[i].x,
+			'y' .. self.pixels[i].y,
+			'id' .. self.pixels[i].id,
+			'pair' .. self.pixels[i].pair,
+			'color' .. self.pixels[i].color, 
+			'highlight' .. self.pixels[i].hlColor)
 
 		noStroke()
 

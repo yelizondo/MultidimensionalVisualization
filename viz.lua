@@ -24,7 +24,6 @@ function setup()
 
 	mdv:spiralShapedArrangement(x1,y1,linkData(vendedores,precios),"#E62660","#272822","#BCF6DB")
 	mdv:spiralShapedArrangement(x2,y2,linkData(precios,vendedores),"#E62660","#272822","#BCF6DB")
-	
 end
 
 function draw()
