@@ -77,7 +77,7 @@ function linkData(data1,data2)
 	local _table={}
 	for i=1,#data1
 	do
-		local sq={data1[i],data2[i]}
+		local sq={id=data1[i],pair=data2[i]}
 		table.insert(_table,sq)
 	end
 end
