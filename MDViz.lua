@@ -39,7 +39,6 @@ function MDViz:spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor
 	local steps = 1
 	local temp_steps = steps
 
-	print(dataTable)
 	data = relevanceFactor(dataTable) -- This sorts the data
 
 
@@ -162,8 +161,8 @@ function MDViz:getPixelColor(id, minValue, maxValue, minColor, maxColor)
 	local temp = map(id,
 						minValue,
 						maxValue,
-						tonumber(removeFirst(minColor),16),
-						tonumber(removeFirst(maxColor),16))
+						tonumber(removeFirstStr(minColor),16),
+						tonumber(removeFirstStr(maxColor),16))
 	return num2hex(temp)
 end
 
