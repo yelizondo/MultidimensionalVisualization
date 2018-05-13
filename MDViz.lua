@@ -55,7 +55,7 @@ function MDViz:drawPixels()
 		event(CLICKED)
 		if (rect(self.pixels[i].x, self.pixels[i].y, 1, 1)) then
 			highlight = not highlight
-			interactionManagment(self.pixels[i].pair,highlight)
+			self.interactionManagment(self.pixels[i].pair,highlight)
 		end
 	end
 end
@@ -64,7 +64,7 @@ end
 -- Dado un pixel, busca los pixeles asociados
 -- y los resalta o no
 function MDViz:interactionManagment(pair,highlight)
-	for i=1,#pixels do
+	for i=1,#self.pixels do
 		if (pixels[i].id == pair) then
 			pixels[i].highlight = highlight
 		end

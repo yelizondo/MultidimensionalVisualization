@@ -20,6 +20,7 @@ function setup()
 
 	-- Lo que hacen es general los pixels enlazados y 
 	-- agregarlos a un {}, para luego dibujarlos
+	
 	mdv:spiralShapedArrangement(x1,y1,linkData(data1,data2))
 	mdv:secondTechnique(x2,y2,linkData(data2,data1))
 	
