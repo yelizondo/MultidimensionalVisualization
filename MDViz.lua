@@ -213,3 +213,23 @@ function num2hex(num)
     if s == '' then s = '0' end
     return '#' .. s
 end
+
+function goRight(x,y)
+	x = x + 1
+	return {x,y}
+end
+
+function goLeft(x,y)
+	x = x - 1	
+	return {x,y}
+end
+
+function goUp(x,y)
+	y = y - 1
+	return {x,y}
+end
+
+function goDown(x,y)
+	y = y + 1
+	return {x,y}
+end
