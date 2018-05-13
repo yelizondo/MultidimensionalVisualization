@@ -143,13 +143,18 @@ function MDViz:interactionManagment(pair,highlight)
 	end
 end
 
+function removeFirstStr(str)
+	return string.gsub(str,'#','')
+end
+
 -- 
 function MDViz:getPixelColor(id, minValue, maxValue, minColor, maxColor)
-	local color
-
-
-
-	return color
+	local temp = map(id,
+						minValue,
+						maxValue,
+						tonumber(removeFirst(minColor),16),
+						tonumber(removeFirst(maxColor),16))
+	return num2hex(temp)
 end
 
 -- Funcion asociar valores, para poder enlazarlos y graficar con iteracciones
