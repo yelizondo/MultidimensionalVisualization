@@ -2,7 +2,7 @@ require "MDViz"
 require "LuaDataFrames/DataFrameTools"
 
 function setup()
-	size(800,800)
+	size(510,400)
 
 	-- Random data to test
 	dataFrame = readCSV("data/walmartSales.csv", ",")
@@ -10,7 +10,7 @@ function setup()
 	precios = getCol(dataFrame, "Precios")
 
 	-- First technique position
-	local x1 = 100
+	local x1 = 110
 	local y1 = 200
 
 	-- Second technique position
