@@ -1,20 +1,12 @@
-Class = {}
+require "LuaDataFrames/DataFrameTools"
 
-function Class:new()
-	p = {}
-	setmetatable(p,self)
-	self.__index = self
-	return p
+function setup()
+	size(600,600)
+	dataFrame = readCSV("data/walmartSales.csv", ",")
+	vendedores = getCol(dataFrame,"Vendedor")
+	precios = getCol(dataFrame, "Precios")
 end
 
-function Class:printH()
-	return 9
+function draw()
+	background("#27274F")
 end
-
-function Class:test()
-	print("holas")
-	print(self.printH())
-end
-
-a = Class:new()
-a:test()
