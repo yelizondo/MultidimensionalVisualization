@@ -7,9 +7,6 @@ function setup()
 	precios = getCol(dataFrame, "Precios")
 	local data = linkData(vendedores,precios)
 	local result = relevanceFactor(data)
-	print(#data)
-	print(#result)
-	tprint(result)
 end
 
 function draw()
@@ -47,4 +44,26 @@ function tprint (tbl, indent)
 		print(formatting .. v)
 	  end
 	end
-  end
+end
+
+
+function getMinValue(sorted)
+	return sorted[1].id
+end
+
+function getMaxValue(sorted)
+	local i = #sorted
+	return sorted[i].id
+end
+
+function num2hex(num)
+    local hexstr = '0123456789abcdef'
+    local s = ''
+    while num > 0 do
+        local mod = math.fmod(num, 16)
+        s = string.sub(hexstr, mod+1, mod+1) .. s
+        num = math.floor(num / 16)
+    end
+    if s == '' then s = '0' end
+    return s
+end
