@@ -135,6 +135,7 @@ function drawPixels()
 
 		event(CLICKED)
 		if (rect(pixels[i].x, pixels[i].y, 1, 1)) then
+			print("click")
 			highlight = not highlight
 			interactionManagment(pixels[i].pair,highlight)
 		end
