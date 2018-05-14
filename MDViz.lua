@@ -118,12 +118,6 @@ function drawPixels()
 	local highlight = false
 
 	for i = 1, #pixels do
-		--[[print('x' .. self.pixels[i].x,
-			'y' .. self.pixels[i].y,
-			'id' .. self.pixels[i].id,
-			'pair' .. self.pixels[i].pair,
-			'color>' .. self.pixels[i].color, 
-			'highlight' .. self.pixels[i].hlColor)]]
 
 		noStroke()
 
