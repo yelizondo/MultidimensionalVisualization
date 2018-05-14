@@ -117,6 +117,45 @@ end
 function drawPixels()
 	local highlight = false
 
+	local i = 1
+	while (i <= #pixels) do
+
+		-- Pixel a
+		noStroke()
+		if (not pixels[i].highlight) then 
+			fill(pixels[i].color)
+		else
+			fill(pixels[i].hlColor)
+		end
+
+		event(CLICKED)
+		if (rect(pixels[i].x, pixels[i].y, 1, 1)) then
+			print("click")
+			highlight = not highlight
+			interactionManagment(pixels[i].pair,highlight)
+		end
+
+		-- Pixel b
+		noStroke()
+		if (not pixels[i+1].highlight) then 
+			fill(pixels[i+1].color)
+		else
+			fill(pixels[i+1].hlColor)
+		end
+
+		event(CLICKED)
+		if (rect(pixels[i+1].x, pixels[i+1].y, 1, 1)) then
+			print("click")
+			highlight = not highlight
+			interactionManagment(pixels[i+1].pair,highlight)
+		end
+
+
+		i = i + 2
+	end
+
+--[[
+
 	for i = 1, #pixels do
 
 		noStroke()
@@ -133,7 +172,7 @@ function drawPixels()
 			highlight = not highlight
 			interactionManagment(pixels[i].pair,highlight)
 		end
-	end
+	end]]
 end
 
 
