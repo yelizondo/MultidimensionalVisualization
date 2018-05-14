@@ -148,6 +148,10 @@ function drawPixels()
 
 		event(CLICKED)
 		if (rect(pixels[i+1].x, pixels[i+1].y, 1, 1)) then
+			fill(255)
+			rect(580,190,200,40)
+			text("ID del Vendedor="..pixels[i].pair,600,200)
+			text("Venta realizada="..pixels[i].id,600,220)
 			highlight = not highlight
 			interactionManagment(pixels[i+1].pair,highlight)
 		end

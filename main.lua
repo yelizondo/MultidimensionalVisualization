@@ -29,7 +29,12 @@ end
 
 function draw()
 	background("#272822")
-
+	fill(255)
+	rect(90,35,45,20)
+	text("Ventas", 95, 50)
+	fill(255)
+	rect(375,35,67,20)
+	text("Vendedores", 380, 50)
 	-- Recorre el arreglo de pixeles y los dibuja
 	drawPixels()
 end
