@@ -155,26 +155,6 @@ function drawPixels()
 
 		i = i + 2
 	end
-
---[[
-
-	for i = 1, #pixels do
-
-		noStroke()
-
-		if (not pixels[i].highlight) then 
-			fill(pixels[i].color)
-		else
-			fill(pixels[i].hlColor)
-		end
-
-		event(CLICKED)
-		if (rect(pixels[i].x, pixels[i].y, 1, 1)) then
-			print("click")
-			highlight = not highlight
-			interactionManagment(pixels[i].pair,highlight)
-		end
-	end]]
 end
 
 
@@ -182,7 +162,7 @@ end
 -- y los resalta o no
 function interactionManagment(pair,highlight)
 	for i=1,#pixels do
-		if (pixels[i].id == pair) then
+		if (pixels[i].id == pair or pixels[i].pair == pair) then
 			pixels[i].highlight = highlight
 		end
 	end

@@ -23,8 +23,8 @@ function setup()
 	-- Lo que hacen es general los pixels enlazados y 
 	-- agregarlos a un {}, para luego dibujarlos
 
-	spiralShapedArrangement(x1,y1,linkData(vendedores,precios),"#E62660","#272822","#BCF6DB")
-	spiralShapedArrangement(x2,y2,linkData(precios,vendedores),"#E62660","#272822","#BCF6DB")
+	spiralShapedArrangement(x2,y2,linkData(vendedores,precios),"#FFFF00","#272822","#BCF6DB")
+	spiralShapedArrangement(x1,y1,linkData(precios,vendedores),"#FFFF00","#272822","#BCF6DB")
 end
 
 function draw()
