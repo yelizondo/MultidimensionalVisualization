@@ -2,7 +2,9 @@ require "MDViz"
 require "LuaDataFrames/DataFrameTools"
 
 function setup()
-	size(510,400)
+	size(800,400)
+	local f = loadFont("data/Vera.ttf",12)
+	textFont(f)
 	noLoop()
 	frameRate(120)
 	-- Random data to test
