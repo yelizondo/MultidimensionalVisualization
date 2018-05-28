@@ -1,4 +1,12 @@
 pixels = {}
+mt = {}
+
+mt = {}          -- create the matrix
+for i=1,200 do
+	for j=1,200 do
+    	mt[i*200 + j] = 0
+  	end
+end
 
 function pixel(pX,pY,pId,pPair,pColor,pHLC)
 	return {id = pId, 
@@ -20,27 +28,58 @@ function relevanceFactor(pTable)
 	return pTable
 end
 
+function drawCircleTechnique(x,y,grid)
+	image(grid,x,y)
+end
+
+function numberConvertion(table)
+	for i=1,#table do
+		table[i] = tonumber(table[i])
+	end
+	return table
+end
+
+function quicksort(t)
+  if #t<2 then return t end
+  local pivot=t[1]
+  local a,b,c={},{},{}
+  for _,v in ipairs(t) do
+    if     v<pivot then a[#a+1]=v
+    elseif v>pivot then c[#c+1]=v
+    else                b[#b+1]=v
+    end
+  end
+  a=quicksort(a)
+  c=quicksort(c)
+  for _,v in ipairs(b) do a[#a+1]=v end
+  for _,v in ipairs(c) do a[#a+1]=v end
+  return a
+end
+
+
 -----------------------------------------------
 --  Las tecnicas generan los pixeles en sus  --
 --  respectivos x,y para anadirlos al table  --
 -----------------------------------------------
 
 -- Primera tecnica
-function spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor)
+function setupCircleTechnique(dataTable,minColor, maxColor, highlightColor)
 	local turns = {true,false,false,false}
 	local steps = 1
 	local temp_steps = steps
-
 	data = relevanceFactor(dataTable) -- This sorts the data
 
+	-- Calculate x & y positions
+	local x = 100
+	local y = 100
 
 	for i=1,#data do
 		
 		-- Aqui se calcula el color
-		local color = getPixelColor(data[i].id, getMinValue(data), getMaxValue(data), minColor, maxColor)
+		local colore = getPixelColor(data[i].id, getMinValue(data), getMaxValue(data), minColor, maxColor)
 		-- Aqui se anade el pixel al table de pixels
-		table.insert(pixels, pixel(x, y, data[i].id, data[i].pair, color, pHColor))
-
+		table.insert(pixels, pixel(x, y, data[i].id, data[i].pair, colore, highlightColor))
+		mt[x*200 + y] = color(hex2rgb(colore)[1],hex2rgb(colore)[3],hex2rgb(colore)[3],255)
 
 		if (turns[1]) then
 			
@@ -101,6 +140,8 @@ function spiralShapedArrangement(x,y,dataTable,pHColor, minColor, maxColor)
 
 		end
 	end
+
+	return drawPixels(width,height)
 end
 
 -- Segunda tecnica
@@ -114,51 +155,32 @@ end
 
 -- Recorro el table de pixels y los dibujo
 -- Ademas se encarga de llamar la funcion encargada de la interaccion
-function drawPixels()
-	local highlight = false
+function drawPixels(width, height)
+	local grid
+	local ncols = 200
+	local nrows = 200
 
-	local i = 1
-	while (i <= #pixels) do
+	grid = createImage(nrows,ncols)
 
-		-- Pixel a
-		noStroke()
-		if (not pixels[i].highlight) then 
-			fill(pixels[i].color)
-		else
-			fill(pixels[i].hlColor)
-		end
+	local px = loadPixels(grid)
 
-		event(CLICKED)
-		if (rect(pixels[i].x, pixels[i].y, 1, 1)) then
-			fill(255)
-			rect(580,190,200,40)
-			text("ID del Vendedor="..pixels[i].pair,600,200)
-			text("Venta realizada="..pixels[i].id,600,220)
-			highlight = not highlight
-			interactionManagment(pixels[i].pair,highlight)
-		end
-
-		-- Pixel b
-		noStroke()
-		if (not pixels[i+1].highlight) then 
-			fill(pixels[i+1].color)
-		else
-			fill(pixels[i+1].hlColor)
-		end
-
-		event(CLICKED)
-		if (rect(pixels[i+1].x, pixels[i+1].y, 1, 1)) then
-			fill(255)
-			rect(580,190,200,40)
-			text("ID del Vendedor="..pixels[i].pair,600,200)
-			text("Venta realizada="..pixels[i].id,600,220)
-			highlight = not highlight
-			interactionManagment(pixels[i+1].pair,highlight)
-		end
+	for i=1,#pixels do
+		local pixel = pixels[i]
+		local x = pixel.x 
+		local y = pixel.y 
+		local clr = pixel.color
+		local rgb = hex2rgb(clr)
 
 
-		i = i + 2
+		--px[y*nrows+x] = color(rgb[1],rgb[2],rgb[3],255)
 	end
+	for i=1,200 do
+		for j=1,200 do
+			px[i*nrows+j] = mt[i*200 + j] 
+			end
+	end
+	updatePixels(grid,px)
+	return grid
 end
 
 
@@ -203,6 +225,11 @@ function tprint (tbl, indent)
 		print(formatting .. v)
 	  end
 	end
+end
+
+function hex2rgb(hex)
+    hex = hex:gsub("#","")
+    return {tonumber("0x"..hex:sub(1,2)), tonumber("0x"..hex:sub(3,4)), tonumber("0x"..hex:sub(5,6))}
 end
 
 function getMinValue(sorted)
