@@ -163,20 +163,27 @@ function drawPixels(width, height)
 	grid = createImage(nrows,ncols)
 
 	local px = loadPixels(grid)
-
+--[[
 	for i=1,#pixels do
 		local pixel = pixels[i]
 		local x = pixel.x 
 		local y = pixel.y 
 		local clr = pixel.color
 		local rgb = hex2rgb(clr)
+		if (x == 100 and y == 100) then print(clr) end
 
 
 		--px[y*nrows+x] = color(rgb[1],rgb[2],rgb[3],255)
-	end
+	end 
+	]]
+
+	local clr = "#EFF2E9"
+	local rgb = hex2rgb(clr)
+
 	for i=1,200 do
 		for j=1,200 do
-			px[i*nrows+j] = mt[i*200 + j] 
+
+			px[i*nrows+j] = color(rgb[1],rgb[2],rgb[3],255)
 			end
 	end
 	updatePixels(grid,px)
