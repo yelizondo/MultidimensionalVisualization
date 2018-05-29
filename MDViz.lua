@@ -1,3 +1,4 @@
+require "colores"
 pixels = {}
 
 mt = {}          -- create the matrix
