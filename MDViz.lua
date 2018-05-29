@@ -63,7 +63,7 @@ end
 -----------------------------------------------
 
 -- Primera tecnica
-function setupCircleTechnique(dataTable,minColor, maxColor, highlightColor)
+function setupCircleTechnique(dataTable, width, height)
 	local turns = {true,false,false,false}
 	local steps = 1
 	local temp_steps = steps
