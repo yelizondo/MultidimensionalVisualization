@@ -68,15 +68,11 @@ function setupCircleTechnique(dataTable, width, height)
 	local data = relevanceFactor(dataTable) -- This sorts the data
 
 	-- Calculate x & y positions
-	
-	translate(width/2,height/2) -- OJO Puede ocasionar mal posicionamiento
 
 	for i=1,#data do
 		local t = math.rad(i)
-		local x = math.floor(((t * math.cos(t)) / 3.7)+0.5)
-		local y = math.floor(((t * math.sin(t)) / 3.7)+0.5)
-
-		print(x,y)
+		local x = width/2 + math.floor(((t * math.cos(t)) / 3.7)+0.5)
+		local y = height/2 +math.floor(((t * math.sin(t)) / 3.7)+0.5)
 		table.insert(pixels, pixel(x, y, data[i]))		
 	end
 
@@ -104,15 +100,12 @@ function drawPixels(width, height)
 	local px = loadPixels(grid)
 
 	for i=1, #pixels do
-
+		local x = pixels[i].x
+		local y = pixels[i].y
+		print(x,y)
+		px[x*nrows+y] = 255
 	end
 
-	for i=0,nrows-1 do
-		for j=1,ncols do
-
-			px[i*nrows+j] = 0 --color(rgb[1],rgb[2],rgb[3],255)
-			end
-	end
 	updatePixels(grid,px)
 	return grid
 end
