@@ -1,3 +1,11 @@
+local default={
+    {255,0,0},
+    {227,66,51},
+    {255,26,0},
+    {150,0,35},
+    {128,0,0}
+}
+
 local rojos={
     {255,0,0},
     {227,66,51},
@@ -38,12 +46,32 @@ local cafes={
     {128,0,32}
 }
 
-function initColor(colores)
-    local colors={}
-    for i=1, #colores
-    do
-        local a=color(colores[i][1],colores[i][2],colores[i][3],255)
-        table.insert(colors,a)
+function getMainColor(color)
+    if (color == "ROJO") then 
+        return rojos[1]
+    elseif (color == "MAGENTA") then
+        return magentas[1]
+    elseif (color == "CAFE") then
+        return cafes[1]
+    elseif (color == "AZUL") then
+        return azules[1]
+    elseif (color == "VERDE") then
+        return verdes[1]
     end
-    return colors
+end
+
+function getColorScale(color)
+    if (color == "ROJOS") then 
+        return rojos
+    elseif (color == "MAGENTAS") then
+        return magentas
+    elseif (color == "CAFES") then
+        return cafes
+    elseif (color == "AZULS") then
+        return azules
+    elseif (color == "VERDES") then
+        return verdes
+    elseif (color == "DEFAULT") then
+        return verdes
+    end
 end

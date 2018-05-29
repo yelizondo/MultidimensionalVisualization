@@ -1,5 +1,6 @@
 require "colores"
 pixels = {}
+COLOR_SCALE_TO_DISPLAY = ""
 
 
 function pixel(pX,pY,pId,pPair,pColor,pHLC)
@@ -10,10 +11,6 @@ function pixel(pX,pY,pId,pPair,pColor,pHLC)
 			color = pColor,
 			highlight = false,
 			hlColor = pHLC}
-end
-
-function by_ID(data1, data2)
-	return data1.id < data2.id -- compara por id (1er parametro de la tabla)
 end
 
 function relevanceFactor(pTable)
@@ -49,17 +46,7 @@ function quicksort(t)
   return a
 end
 
-
------------------------------------------------
---  Las tecnicas generan los pixeles en sus  --
---  respectivos x,y para anadirlos al table  --
------------------------------------------------
-
--- Primera tecnica
 function setupCircleTechnique(dataTable, width, height)
-	local turns = {true,false,false,false}
-	local steps = 1
-	local temp_steps = steps
 	local data = relevanceFactor(dataTable) -- This sorts the data
 
 	-- Calculate x & y positions
@@ -74,13 +61,87 @@ function setupCircleTechnique(dataTable, width, height)
 	return drawPixels(width,height)
 end
 
--- Segunda tecnica
-function twoDArrangement(data)
+function interactionAxis(x,y,w,h)
+	local showFilter = false
+
+	fill(0)
+	rect(x,y,w,h)
+
+	-- Width y height de los botones
+	local btnWidth = w - 10
+	local btnHeight = (h/5) - 6
+
+	event(CLICKED)
+
+	-- Boton Uno
+	local rojo = getMainColor("ROJO")
+	fill(rojo[1],rojo[2],rojo[3])
+	if rect(x+5, y+5, btnWidth, btnHeight) then
+		showFilter = not showFilter
+		if (showFilter) then
+			setColorScale("ROJOS")
+		else
+			setColorScale("DEFAULT")
+		end
+	end
+
+	-- Boton Dos
+	local verde = getMainColor("VERDE")
+	fill(verde[1],verde[2],verde[3])
+	if rect(x+5, y+btnHeight + 5*2, btnWidth, btnHeight) then
+		showFilter = not showFilter
+		if (showFilter) then
+			setColorScale("VERDES")
+		else
+			setColorScale("DEFAULT")
+		end
+	end
+
+	-- Boton Tre
+	local magenta = getMainColor("MAGENTA")
+	fill(magenta[1],magenta[2],magenta[3])
+	if rect(x+5, y+btnHeight*2 + 5*3, btnWidth, btnHeight) then
+		showFilter = not showFilter
+		if (showFilter) then
+			setColorScale("MAGENTAS")
+		else
+			setColorScale("DEFAULT")
+		end
+	end
+
+	-- Boton Cua
+	local cafe = getMainColor("CAFE")
+	fill(cafe[1],cafe[2],cafe[3])
+	if rect(x+5, y+btnHeight*3 + 5*4, btnWidth, btnHeight) then
+		showFilter = not showFilter
+		if (showFilter) then
+			setColorScale("CAFES")
+		else
+			setColorScale("DEFAULT")
+		end
+	end
+
+	-- Boton azu
+	local azul = getMainColor("AZUL")
+	fill(azul[1],azul[2],azul[3])
+	if rect(x+5, y+btnHeight*4 + 5*5, btnWidth, btnHeight) then
+		showFilter = not showFilter
+		if (showFilter) then
+			setColorScale("AZULES")
+		else
+			setColorScale("DEFAULT")
+		end
+	end
 end
 
--- Tercera tecnica
-function groupingArrangement(data)
+function setColorScale(colorScale)
+	COLOR_SCALE_TO_DISPLAY = colorScale
 end
+
+function getColorScale()
+	return COLOR_SCALE_TO_DISPLAY
+end
+
 -----------------------------------------------
 
 -- Recorro el table de pixels y los dibujo
@@ -94,47 +155,33 @@ function drawPixels(width, height)
 
 	local px = loadPixels(grid)
 
+	local colorScale = getColorScale()
+	local colors = nil
+
+	if (colorScale == "DEFAULT") then 
+		colors = getColorScale("DEFAULT")
+    elseif (colorScale == "MAGENTAS") then
+    	colors = getColorScale("MAGENTAS")
+    elseif (colorScale == "CAFES") then
+    	colors = getColorScale("CAFES")
+    elseif (colorScale == "AZULES") then
+    	colors = getColorScale("AZULES")
+    elseif (colorScale == "VERDES") then
+    	colors = getColorScale("VERDES")
+    elseif (colorScale == "ROJOS") then
+    	colors = getColorScale("ROJOS")
+    end
+
+    -- Aqui se usan esos colores para hacer los rangos y pintar los pixeles
+
 	for i=1, #pixels do
 		local x = pixels[i].x
 		local y = pixels[i].y
-		print(x,y)
 		px[x*nrows+y] = 255
 	end
 
 	updatePixels(grid,px)
 	return grid
-end
-
-
--- Dado un pixel, busca los pixeles asociados
--- y los resalta o no
-function interactionManagment(pair,highlight)
-	for i=1,#pixels do
-		if (pixels[i].id == pair or pixels[i].pair == pair) then
-			pixels[i].highlight = highlight
-		end
-	end
-end
-
--- 
-function getPixelColor(id, minValue, maxValue, minColor, maxColor)
-	local temp = map(id,
-						minValue,
-						maxValue,
-						tonumber(removeFirstStr(minColor),16),
-						tonumber(removeFirstStr(maxColor),16))
-	return '#' .. num2hex(temp)
-end
-
--- Funcion asociar valores, para poder enlazarlos y graficar con iteracciones
-function linkData(data1,data2)
-	local _table={}
-	for i=1,#data1
-	do
-		local sq={id=data1[i],pair=data2[i]}
-		table.insert(_table,sq)
-	end
-	return _table
 end
 
 function tprint (tbl, indent)
@@ -147,54 +194,4 @@ function tprint (tbl, indent)
 		print(formatting .. v)
 	  end
 	end
-end
-
-function hex2rgb(hex)
-    hex = hex:gsub("#","")
-    return {tonumber("0x"..hex:sub(1,2)), tonumber("0x"..hex:sub(3,4)), tonumber("0x"..hex:sub(5,6))}
-end
-
-function getMinValue(sorted)
-	return sorted[1].id
-end
-
-function getMaxValue(sorted)
-	local i = #sorted
-	return sorted[i].id
-end
-
-function removeFirstStr(str)
-	return string.gsub(str,'#','')
-end
-
-function num2hex(num)
-    local hexstr = '0123456789ABCDEF'
-    local s = ''
-    while num > 0 do
-        local mod = math.fmod(num, 16)
-        s = string.sub(hexstr, mod+1, mod+1) .. s
-        num = math.floor(num / 16)
-    end
-    if s == '' then s = '0' end
-    return s
-end
-
-function goRight(x,y)
-	x = x + 1
-	return {x,y}
-end
-
-function goLeft(x,y)
-	x = x - 1	
-	return {x,y}
-end
-
-function goUp(x,y)
-	y = y - 1
-	return {x,y}
-end
-
-function goDown(x,y)
-	y = y + 1
-	return {x,y}
 end

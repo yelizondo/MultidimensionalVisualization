@@ -19,4 +19,5 @@ end
 function draw()
 	background("#272822")
 	drawCircleTechnique(100,100,grid)
+	interactionAxis(750, 150,100, 300)
 end
