@@ -2,7 +2,7 @@ require "MDViz"
 require "LuaDataFrames/DataFrameTools"
 
 function setup()
-	size(800,700)
+	size(900,700)
 	local f = loadFont("data/Vera.ttf",12)
 	textFont(f)
 	noLoop()
@@ -12,7 +12,7 @@ function setup()
 	precios = getCol(dataFrame, "Precios")
 
 	precios = numberConvertion(precios)
-	grid = setupCircleTechnique(precios)
+	grid = setupCircleTechnique(precios,700,700,500)
 
 end
 
