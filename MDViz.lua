@@ -1,5 +1,4 @@
 pixels = {}
-mt = {}
 
 mt = {}          -- create the matrix
 for i=1,200 do
@@ -23,9 +22,8 @@ function by_ID(data1, data2)
 end
 
 function relevanceFactor(pTable)
-	table.sort(pTable, by_ID)
 	-- se ordenan los datos de acuerdo a cierto criterio
-	return pTable
+	return quicksort(pTable)
 end
 
 function drawCircleTechnique(x,y,grid)
@@ -63,82 +61,19 @@ end
 -----------------------------------------------
 
 -- Primera tecnica
-function setupCircleTechnique(dataTable,minColor, maxColor, highlightColor)
+function setupCircleTechnique(dataTable, width, height)
 	local turns = {true,false,false,false}
 	local steps = 1
 	local temp_steps = steps
-	data = relevanceFactor(dataTable) -- This sorts the data
+	local data = relevanceFactor(dataTable) -- This sorts the data
 
 	-- Calculate x & y positions
-	local x = 100
-	local y = 100
 
 	for i=1,#data do
-		
-		-- Aqui se calcula el color
-		local colore = getPixelColor(data[i].id, getMinValue(data), getMaxValue(data), minColor, maxColor)
-		-- Aqui se anade el pixel al table de pixels
-		table.insert(pixels, pixel(x, y, data[i].id, data[i].pair, colore, highlightColor))
-		mt[x*200 + y] = color(hex2rgb(colore)[1],hex2rgb(colore)[3],hex2rgb(colore)[3],255)
-
-		if (turns[1]) then
-			
-			local mov = goRight(x,y)
-			x = mov[1]
-			y = mov[2]
-
-			if (temp_steps == 0) then 
-				turns[1] = false
-				turns[2] = true
-				--steps = steps + 1
-				temp_steps = steps
-			end
-
-			temp_steps = temp_steps - 1
-
-		elseif (turns[2]) then
-			local mov = goUp(x,y)
-			x = mov[1]
-			y = mov[2]
-
-			if (temp_steps == 0) then 
-				turns[2] = false
-				turns[3] = true
-				steps = steps + 1
-				temp_steps = steps
-			end
-
-			temp_steps = temp_steps - 1
-
-		elseif (turns[3]) then
-			local mov = goLeft(x,y)
-			x = mov[1]
-			y = mov[2]
-
-			if (temp_steps == 0) then 
-				turns[3] = false
-				turns[4] = true
-				--steps = steps + 1
-				temp_steps = steps
-			end
-
-			temp_steps = temp_steps - 1
-
-		elseif (turns[4]) then
-			local mov = goDown(x,y)
-			x = mov[1]
-			y = mov[2]
-
-			if (temp_steps == 0) then 
-				turns[4] = false
-				turns[1] = true
-				steps = steps + 1
-				temp_steps = steps
-			end
-
-			temp_steps = temp_steps - 1
-
-		end
+		local t = math.rad(i)
+		local x = width/2 + math.floor(((t * math.cos(t)) / 3.7)+0.5)
+		local y = height/2 +math.floor(((t * math.sin(t)) / 3.7)+0.5)
+		table.insert(pixels, pixel(x, y, data[i]))		
 	end
 
 	return drawPixels(width,height)
@@ -157,35 +92,20 @@ end
 -- Ademas se encarga de llamar la funcion encargada de la interaccion
 function drawPixels(width, height)
 	local grid
-	local ncols = 200
-	local nrows = 200
+	local ncols = 500
+	local nrows = 500
 
 	grid = createImage(nrows,ncols)
 
 	local px = loadPixels(grid)
---[[
-	for i=1,#pixels do
-		local pixel = pixels[i]
-		local x = pixel.x 
-		local y = pixel.y 
-		local clr = pixel.color
-		local rgb = hex2rgb(clr)
-		if (x == 100 and y == 100) then print(clr) end
 
-
-		--px[y*nrows+x] = color(rgb[1],rgb[2],rgb[3],255)
-	end 
-	]]
-
-	local clr = "#EFF2E9"
-	local rgb = hex2rgb(clr)
-
-	for i=1,200 do
-		for j=1,200 do
-
-			px[i*nrows+j] = color(rgb[1],rgb[2],rgb[3],255)
-			end
+	for i=1, #pixels do
+		local x = pixels[i].x
+		local y = pixels[i].y
+		print(x,y)
+		px[x*nrows+y] = 255
 	end
+
 	updatePixels(grid,px)
 	return grid
 end
