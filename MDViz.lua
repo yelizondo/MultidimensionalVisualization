@@ -173,11 +173,11 @@ function drawPixels(width, height)
     end
 
     -- Aqui se usan esos colores para hacer los rangos y pintar los pixeles
-
+	local juandi=color(0,255,0,255)
 	for i=1, #pixels do
 		local x = pixels[i].x
 		local y = pixels[i].y
-		px[x*nrows+y] = 255
+		px[x*nrows+y] = juandi
 	end
 
 	updatePixels(grid,px)
