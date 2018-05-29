@@ -1,12 +1,6 @@
 require "colores"
 pixels = {}
 
-mt = {}          -- create the matrix
-for i=1,200 do
-	for j=1,200 do
-    	mt[i*200 + j] = 0
-  	end
-end
 
 function pixel(pX,pY,pId,pPair,pColor,pHLC)
 	return {id = pId, 
