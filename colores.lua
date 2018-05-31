@@ -60,7 +60,7 @@ function getMainColor(color)
     end
 end
 
-function getColorScale(color)
+function getColorScales(color)
     if (color == "ROJOS") then 
         return rojos
     elseif (color == "MAGENTAS") then

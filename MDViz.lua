@@ -1,4 +1,5 @@
 require "colores"
+require "utils"
 pixels = {}
 COLOR_SCALE_TO_DISPLAY = ""
 
@@ -22,29 +23,7 @@ function drawCircleTechnique(x,y,grid)
 	image(grid,x,y)
 end
 
-function numberConvertion(table)
-	for i=1,#table do
-		table[i] = tonumber(table[i])
-	end
-	return table
-end
 
-function quicksort(t)
-  if #t<2 then return t end
-  local pivot=t[1]
-  local a,b,c={},{},{}
-  for _,v in ipairs(t) do
-    if     v<pivot then a[#a+1]=v
-    elseif v>pivot then c[#c+1]=v
-    else                b[#b+1]=v
-    end
-  end
-  a=quicksort(a)
-  c=quicksort(c)
-  for _,v in ipairs(b) do a[#a+1]=v end
-  for _,v in ipairs(c) do a[#a+1]=v end
-  return a
-end
 
 function setupCircleTechnique(dataTable, width, height)
 	local data = relevanceFactor(dataTable) -- This sorts the data
@@ -143,7 +122,6 @@ function getColorScale()
 end
 
 -----------------------------------------------
-
 -- Recorro el table de pixels y los dibujo
 -- Ademas se encarga de llamar la funcion encargada de la interaccion
 function drawPixels(width, height)
@@ -156,42 +134,21 @@ function drawPixels(width, height)
 	local px = loadPixels(grid)
 
 	local colorScale = getColorScale()
-	local colors = nil
-
-	if (colorScale == "DEFAULT") then 
-		colors = getColorScale("DEFAULT")
-    elseif (colorScale == "MAGENTAS") then
-    	colors = getColorScale("MAGENTAS")
-    elseif (colorScale == "CAFES") then
-    	colors = getColorScale("CAFES")
-    elseif (colorScale == "AZULES") then
-    	colors = getColorScale("AZULES")
-    elseif (colorScale == "VERDES") then
-    	colors = getColorScale("VERDES")
-    elseif (colorScale == "ROJOS") then
-    	colors = getColorScale("ROJOS")
-    end
+	local colors = getColorScales(colorScale)
 
     -- Aqui se usan esos colores para hacer los rangos y pintar los pixeles
-	local juandi=color(255,255,255,255)
 	for i=1, #pixels do
 		local x = pixels[i].x
 		local y = pixels[i].y
-		px[x*nrows+y] = juandi
+		local id = pixels[i].id
+		local clr = hex2rgb(getPixelColor(id,0,3500,"#1F2326","#C7CBD1"))
+
+
+
+		px[x*nrows+y] = rgb(clr)
 	end
 
 	updatePixels(grid,px)
 	return grid
 end
 
-function tprint (tbl, indent)
-	if not indent then indent = 0 end
-	for k, v in pairs(tbl) do
-	  formatting = string.rep("  ", indent) .. k .. ": "
-	  if type(v) == "table" then
-		tprint(v, indent+1)
-	  else
-		print(formatting .. v)
-	  end
-	end
-end
