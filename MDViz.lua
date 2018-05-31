@@ -137,9 +137,8 @@ function drawPixels(width, height)
 	local colorScale = getColorScale()
 	local colors = nil
 
-
 	if (colorScale ~= "DEFAULT") then 
-		colors = getColorScales(colorScale)
+		colors = colorScale
 	else
 		colors = "DEFAULT"
 	end
@@ -153,15 +152,10 @@ function drawPixels(width, height)
 		local clr = nil
 		if (colors == "DEFAULT") then
 			clr = hex2rgb(getPixelColor(id,0,3500,"#1F2326","#C7CBD1"))
-		else
-			local range = #pixels / #colors
-			local start = 0 -- Min value
-			for j=1,#colors do
-				if (id >= start and id <= start + range) then
-					clr = colors[j]
-				end
-				start = start + range
-			end
+		elseif (colors == "ROJOS") then
+				clr = hex2rgb(getPixelColor(id,0,3500,"#f96d6d","#ba0000"))
+		elseif (colors == "AZULES") then
+				clr = hex2rgb(getPixelColor(id,0,3500,"#568fea","#004cc6"))
 		end
 
 		px[x*nrows+y] = rgb(clr)
