@@ -5,7 +5,7 @@ function setup()
 	size(900,700)
 	local f = loadFont("data/Vera.ttf",12)
 	textFont(f)
-	noLoop()
+	
 	frameRate(120)
 	-- Random data to test
 	dataFrame = readCSV("data/walmartSales.csv", ",")
@@ -13,7 +13,7 @@ function setup()
 
 	precios = numberConvertion(precios)
 	setupCircleTechnique(precios,600,600)
-
+	noLoop()
 end
 
 function draw()
