@@ -12,7 +12,7 @@ function setup()
 	precios = getCol(dataFrame, "Precios")
 
 	precios = numberConvertion(precios)
-	grid = setupCircleTechnique(precios,600,600)
+	setupCircleTechnique(precios,600,600)
 
 end
 

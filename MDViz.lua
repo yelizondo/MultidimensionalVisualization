@@ -19,7 +19,8 @@ function relevanceFactor(pTable)
 	return quicksort(pTable)
 end
 
-function drawCircleTechnique(x,y,grid)
+function drawCircleTechnique(x,y,w,h)
+	local grid = drawPixels(w,h)
 	image(grid,x,y)
 end
 
@@ -36,7 +37,7 @@ function setupCircleTechnique(dataTable, width, height)
 		local y = height/2 +math.floor(((t * math.sin(t)) / 3.7)+0.5)
 		table.insert(pixels, pixel(x, y, data[i]))		
 	end
-
+	setColorScale("DEFAULT")
 	return drawPixels(width,height)
 end
 
@@ -134,16 +135,34 @@ function drawPixels(width, height)
 	local px = loadPixels(grid)
 
 	local colorScale = getColorScale()
-	local colors = getColorScales(colorScale)
+	local colors = nil
 
+
+	if (colorScale ~= "DEFAULT") then 
+		colors = getColorScales(colorScale)
+	else
+		colors = "DEFAULT"
+	end
+
+	 
     -- Aqui se usan esos colores para hacer los rangos y pintar los pixeles
 	for i=1, #pixels do
 		local x = pixels[i].x
 		local y = pixels[i].y
 		local id = pixels[i].id
-		local clr = hex2rgb(getPixelColor(id,0,3500,"#1F2326","#C7CBD1"))
-
-
+		local clr = nil
+		if (colors == "DEFAULT") then
+			clr = hex2rgb(getPixelColor(id,0,3500,"#1F2326","#C7CBD1"))
+		else
+			local range = #pixels / #colors
+			local start = 0 -- Min value
+			for j=1,#colors do
+				if (id >= start and id <= start + range) then
+					clr = colors[j]
+				end
+				start = start + range
+			end
+		end
 
 		px[x*nrows+y] = rgb(clr)
 	end
