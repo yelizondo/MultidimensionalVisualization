@@ -10,14 +10,16 @@ function setup()
 	-- Random data to test
 	dataFrame = readCSV("data/walmartSales.csv", ",")
 	precios = getCol(dataFrame, "Precios")
-
 	precios = numberConvertion(precios)
+	min = getMinValue(precios)
+	max = getMaxValue(precios)
+
 	setupCircleTechnique(precios,600,600)
 	noLoop()
 end
 
 function draw()
 	background("#272822")
-	drawCircleTechnique(100,100,grid)
+	drawCircleTechnique(100,100,600,600,min,max)
 	interactionAxis(750, 150,100, 300)
 end

@@ -19,8 +19,8 @@ function relevanceFactor(pTable)
 	return quicksort(pTable)
 end
 
-function drawCircleTechnique(x,y,w,h)
-	local grid = drawPixels(w,h)
+function drawCircleTechnique(x,y,w,h,pMin,pMax)
+	local grid = drawPixels(w,h,pMin,pMax)
 	image(grid,x,y)
 end
 
@@ -38,7 +38,6 @@ function setupCircleTechnique(dataTable, width, height)
 		table.insert(pixels, pixel(x, y, data[i]))		
 	end
 	setColorScale("DEFAULT")
-	return drawPixels(width,height)
 end
 
 function interactionAxis(x,y,w,h)
@@ -54,8 +53,8 @@ function interactionAxis(x,y,w,h)
 	event(CLICKED)
 
 	-- Boton Uno
-	local rojo = getMainColor("ROJO")
-	fill(rojo[1],rojo[2],rojo[3])
+	local rojo = getColorScales("ROJOS")
+	fill(rojo.background)
 	if rect(x+5, y+5, btnWidth, btnHeight) then
 		showFilter = not showFilter
 		if (showFilter) then
@@ -66,8 +65,8 @@ function interactionAxis(x,y,w,h)
 	end
 
 	-- Boton Dos
-	local verde = getMainColor("VERDE")
-	fill(verde[1],verde[2],verde[3])
+	local verde = getColorScales("VERDES")
+	fill(verde.background)
 	if rect(x+5, y+btnHeight + 5*2, btnWidth, btnHeight) then
 		showFilter = not showFilter
 		if (showFilter) then
@@ -78,8 +77,8 @@ function interactionAxis(x,y,w,h)
 	end
 
 	-- Boton Tre
-	local magenta = getMainColor("MAGENTA")
-	fill(magenta[1],magenta[2],magenta[3])
+	local magenta = getColorScales("MAGENTAS")
+	fill(magenta.background)
 	if rect(x+5, y+btnHeight*2 + 5*3, btnWidth, btnHeight) then
 		showFilter = not showFilter
 		if (showFilter) then
@@ -90,8 +89,8 @@ function interactionAxis(x,y,w,h)
 	end
 
 	-- Boton Cua
-	local cafe = getMainColor("CAFE")
-	fill(cafe[1],cafe[2],cafe[3])
+	local cafe = getColorScales("CAFES")
+	fill(cafe.background)
 	if rect(x+5, y+btnHeight*3 + 5*4, btnWidth, btnHeight) then
 		showFilter = not showFilter
 		if (showFilter) then
@@ -102,8 +101,8 @@ function interactionAxis(x,y,w,h)
 	end
 
 	-- Boton azu
-	local azul = getMainColor("AZUL")
-	fill(azul[1],azul[2],azul[3])
+	local azul = getColorScales("AZULES")
+	fill(azul.background)
 	if rect(x+5, y+btnHeight*4 + 5*5, btnWidth, btnHeight) then
 		showFilter = not showFilter
 		if (showFilter) then
@@ -125,38 +124,28 @@ end
 -----------------------------------------------
 -- Recorro el table de pixels y los dibujo
 -- Ademas se encarga de llamar la funcion encargada de la interaccion
-function drawPixels(width, height)
+function drawPixels(width, height,pMin,pMax)
 	local grid
 	local ncols = 500
 	local nrows = 500
-
+	
 	grid = createImage(nrows,ncols)
 
 	local px = loadPixels(grid)
 
-	local colorScale = getColorScale()
-	local colors = nil
+	
+	local colors = getColorScale()
+	local colorScale = getColorScales(colors)
 
-	if (colorScale ~= "DEFAULT") then 
-		colors = colorScale
-	else
-		colors = "DEFAULT"
-	end
-
+	local min = math.floor(pMin+0.5)
+	local max = math.floor(pMax+0.5)
 	 
     -- Aqui se usan esos colores para hacer los rangos y pintar los pixeles
 	for i=1, #pixels do
 		local x = pixels[i].x
 		local y = pixels[i].y
 		local id = pixels[i].id
-		local clr = nil
-		if (colors == "DEFAULT") then
-			clr = hex2rgb(getPixelColor(id,0,3500,"#1F2326","#C7CBD1"))
-		elseif (colors == "ROJOS") then
-				clr = hex2rgb(getPixelColor(id,0,3500,"#f96d6d","#ba0000"))
-		elseif (colors == "AZULES") then
-				clr = hex2rgb(getPixelColor(id,0,3500,"#568fea","#004cc6"))
-		end
+		local clr = hex2rgb(getPixelColor(id,min,max+500,colorScale.min,colorScale.max))
 
 		px[x*nrows+y] = rgb(clr)
 	end

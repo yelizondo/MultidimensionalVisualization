@@ -22,6 +22,16 @@ function quicksort(t)
   return a
 end
 
+function getMinValue(table)
+  table = quicksort(table)
+  return table[1]
+end
+
+function getMaxValue(table)
+  table = quicksort(table)
+  return table[#table]
+end
+
 function tprint (tbl, indent)
   if not indent then indent = 0 end
   for k, v in pairs(tbl) do

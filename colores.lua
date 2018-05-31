@@ -1,64 +1,37 @@
-local default={
-    {0,255,0},
-    {127,255,0},
-    {76,187,23},
-    {80,200,120},
-    {64,130,109}
+local default = {
+    min = "#1F2326",
+    max = "#C7CBD1"
 }
 
-local rojos={
-    {255,0,0},
-    {227,66,51},
-    {255,26,0},
-    {150,0,35},
-    {128,0,0}
+local rojos = {
+    min = "#f96d6d",
+    max = "#ba0000",
+    background = "#ff0000"
 }
 
-local verdes={
-    {0,255,0},
-    {127,255,0},
-    {76,187,23},
-    {80,200,120},
-    {64,130,109}
+local verdes = {
+    min = "#9eff9e",
+    max = "#00c100",
+    background = "#00ff00"
 }
 
-local magentas={
-    {255,0,255},
-    {253,63,146},
-    {197,75,140},
-    {244,176,255},
-    {200,162,200}
+local magentas = {
+    min = "#ff96ff",
+    max = "#cc00cc",
+    background = "#ff00ff"
 }
 
-local azules={
-    {0,255,255},
-    {48,213,200},
-    {135,206,255},
-    {155,196,226},
-    {127,255,212}
+local azules = {
+    min = "#568fea",
+    max = "#004cc6",
+    background = "#0000ff"
 }
 
-local cafes={
-    {148,129,43},
-    {204,119,34},
-    {184,115,51},
-    {218,138,95},
-    {128,0,32}
+local cafes = {
+    min = "#d8c777",
+    max = "#7f6900",
+    background = "#94812b"
 }
-
-function getMainColor(color)
-    if (color == "ROJO") then 
-        return rojos[1]
-    elseif (color == "MAGENTA") then
-        return magentas[1]
-    elseif (color == "CAFE") then
-        return cafes[1]
-    elseif (color == "AZUL") then
-        return azules[1]
-    elseif (color == "VERDE") then
-        return verdes[1]
-    end
-end
 
 function getColorScales(color)
     if (color == "ROJOS") then 
@@ -67,11 +40,11 @@ function getColorScales(color)
         return magentas
     elseif (color == "CAFES") then
         return cafes
-    elseif (color == "AZULS") then
+    elseif (color == "AZULES") then
         return azules
     elseif (color == "VERDES") then
         return verdes
     elseif (color == "DEFAULT") then
-        return verdes
+        return default
     end
 end
