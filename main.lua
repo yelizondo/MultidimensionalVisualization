@@ -20,6 +20,6 @@ end
 
 function draw()
 	background("#272822")
-	drawCircleTechnique(100,100,600,600,min,max)
+	drawCircleTechnique(50,10,600,600,min,max)
 	interactionAxis(750, 150,100, 300)
 end

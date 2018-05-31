@@ -24,8 +24,6 @@ function drawCircleTechnique(x,y,w,h,pMin,pMax)
 	image(grid,x,y)
 end
 
-
-
 function setupCircleTechnique(dataTable, width, height)
 	local data = relevanceFactor(dataTable) -- This sorts the data
 
